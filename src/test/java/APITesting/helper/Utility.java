@@ -38,4 +38,13 @@ public class Utility {
     public static void openPage(String url) {
         driver.get(url);
     }
+
+    // generate randon data email dengan panjang karakter 10
+    public static String generateRandomEmail() {
+        String allowedChars = "abcdefghijklmnopqrstuvwxyz" + "1234567890" + "_-.";
+        String email = "";
+        String temp = RandomStringUtils.randomAlphanumeric(10); // Panjang email 10 karakter
+        email = temp + "@testdata.com";
+        return email.toLowerCase();
+    }
 }
