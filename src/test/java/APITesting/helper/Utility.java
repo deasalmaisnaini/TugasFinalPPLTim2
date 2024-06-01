@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
+import java.util.Map;
 
 public class Utility {
     private static WebDriver driver;
@@ -46,5 +47,20 @@ public class Utility {
         String temp = RandomStringUtils.randomAlphanumeric(10); // Panjang email 10 karakter
         email = temp + "@testdata.com";
         return email.toLowerCase();
+    }
+    
+    public static String generateUpdateUserRequestBody(Map<String, String> userData) {
+        StringBuilder requestBody = new StringBuilder("{");
+
+        for (Map.Entry<String, String> entry : userData.entrySet()) {
+            if (requestBody.length() > 1) {
+                requestBody.append(", ");
+            }
+            requestBody.append("\"").append(entry.getKey()).append("\": ");
+            requestBody.append("\"").append(entry.getValue()).append("\"");
+        }
+
+        requestBody.append("}");
+        return requestBody.toString();
     }
 }

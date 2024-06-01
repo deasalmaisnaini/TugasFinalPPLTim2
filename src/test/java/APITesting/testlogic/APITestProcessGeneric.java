@@ -1,6 +1,7 @@
 package APITesting.testlogic;
 
 import APITesting.model.Location;
+import APITesting.model.UserPreview;
 import APITesting.model.UserProfile;
 import APITesting.helper.Utility;
 import io.restassured.module.jsv.JsonSchemaValidator;
@@ -27,82 +28,65 @@ public class APITestProcessGeneric {
         Assert.assertEquals(currentRes.getStatusCode(), expectedStatusCode);
     }
 
-    public static UserProfile prepareDataUserTestPost() {
-        UserProfile dataUser = new UserProfile();
-        Location dataLocation = new Location();
+    public static UserPreview prepareDataUserTestPost() {
+        UserPreview dataUser = new UserPreview();
+       
+        // prepare data test user
+        // information user
+        String title = "miss";
+        String firstName = "Hong Joshua";
+        String lastName = "Joshushi";
+        String gender = "male";
+        String email = Utility.generateRandomEmail(); // generate email
+       
+
+        dataUser.setTitle(title);
+        dataUser.setFirstName(firstName);
+        dataUser.setLastName(lastName);
+        dataUser.setGender(gender);
+        dataUser.setEmail(email);
+
+        return dataUser;
+    }
+  
+
+
+    public static UserPreview prepareDataUserTestUpdate(String fieldToUpdate, String newValue) {
+        UserPreview dataUser = new UserPreview();
+        
 
         // prepare data test user
         // information user
         String title = "miss";
         String firstName = "Hong Joshua";
         String lastName = "Joshushi";
-        String picture = "https://randomuser.me/api/portraits/med/women/89.jpg";
-        String gender = "Male";
-        String email = Utility.generateRandomEmail(); // generate email
-        String dateOfBirth = "1995-11-17T06:31:57.367Z";
-        String phone = "0821-2134-5643";
-
-        dataUser.setTitle(title);
-        dataUser.setFirstName(firstName);
-        dataUser.setLastName(lastName);
-        dataUser.setPicture(picture);
-        dataUser.setGender(gender);
-        dataUser.setEmail(email);
-        dataUser.setDateOfBirth(dateOfBirth);
-        dataUser.setPhone(phone);
-
-        // location
-        String street = "Jl. Korea Selatan";
-        String city = "Seoul";
-        String state = "Jawa Barat";
-        String country = "Indonesia";
-        String timezone = "+6:00";
-
-        dataLocation.setStreet(street);
-        dataLocation.setCity(city);
-        dataLocation.setState(state);
-        dataLocation.setCountry(country);
-        dataLocation.setTimezone(timezone);
-        dataUser.setLocation(dataLocation);
-
-        return dataUser;
-    }
-
-    public static UserProfile prepareDataUserTestUpdate() {
-        UserProfile dataUser = new UserProfile();
-        Location dataLocation = new Location();
-
-        // prepare data test user
-        // information user
-        String title = "mr";
-        String firstName = "Choirul Scoups";
-        String lastName = "Seungcheol";
-        String picture = "https://randomuser.me/api/portraits/med/women/89.jpg";
         String gender = "male";
-        String dateOfBirth = "1995-08-08T06:31:57.367Z";
-        String phone = "0811-0880-200";
-
+       
+        // Set initial values
         dataUser.setTitle(title);
         dataUser.setFirstName(firstName);
         dataUser.setLastName(lastName);
-        dataUser.setPicture(picture);
         dataUser.setGender(gender);
-        dataUser.setDateOfBirth(dateOfBirth);
-        dataUser.setPhone(phone);
 
-        // location
-        String street = "Jl. Korea Utara";
-        String city = "Gangnam";
-        String state = "Jawa Barat";
-        String country = "Indonesia";
-        String timezone = "+6:00";
 
-        dataLocation.setStreet(street);
-        dataLocation.setCity(city);
-        dataLocation.setState(state);
-        dataLocation.setCountry(country);
-        dataLocation.setTimezone(timezone);
-        dataUser.setLocation(dataLocation);
+     // Update specific field
+        switch (fieldToUpdate) {
+            case "title":
+                dataUser.setTitle(newValue);
+                break;
+            case "firstName":
+                dataUser.setFirstName(newValue);
+                break;
+            case "lastName":
+                dataUser.setLastName(newValue);
+                break;
+            case "registerDate":
+               dataUser.setRegisterDate(newValue);
+                break;
+            default:
+               dataUser.setRegisterDate(newValue);
+                throw new IllegalArgumentException("Field " + fieldToUpdate + " is not supported.");
+        }
 
         return dataUser;
     }

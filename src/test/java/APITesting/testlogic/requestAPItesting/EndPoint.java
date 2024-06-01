@@ -16,7 +16,7 @@ public class EndPoint {
     public static final String CREATE_USER = BASE_URL + "user/create";
 
     // update user by id >> PUT: /user/:id
-    public static final String UPDATE_USER = BASE_URL + "user/";
+    public static final String UPDATE_USER = BASE_URL + "user";
 
     // delete user by id >> DELETE: /user/:id
     public static final String DELETE_USER = BASE_URL + "user/";

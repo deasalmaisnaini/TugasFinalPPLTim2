@@ -1,5 +1,6 @@
 package APITesting.testlogic;
 
+import APITesting.model.UserPreview;
 import APITesting.model.UserProfile;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -16,6 +17,7 @@ import APITesting.testlogic.requestAPItesting.RequestAPIUserManagement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,12 +69,11 @@ public class APIUserTest {
 
         // verify data
         Assert.assertNotNull(userProfile.get("id"));
-        assertThat(userProfile.get("title")).isIn("mr", "ms", "mrs", "miss", "dr", ""); // check title value between mr,
-                                                                                        // ms, mrs, miss, dr, and blank
-        Assert.assertNotNull(userProfile.get("firstName")); // check first name not null
-        Assert.assertNotNull(userProfile.get("lastName")); // check last name not null
-        assertThat(userProfile.get("gender")).isIn("male", "female", ""); // check gender value between male, female,
-                                                                          // and blank
+        assertThat(userProfile.get("title")).isIn("mr", "ms", "mrs", "miss", "dr", ""); 
+                                                                                        
+        Assert.assertNotNull(userProfile.get("firstName")); 
+        Assert.assertNotNull(userProfile.get("lastName"));
+        assertThat(userProfile.get("gender")).isIn("male", "female", ""); 
     }
 
     public void checkResponseBodyGetProfileUserFailed(String expectedMessage) {
@@ -85,25 +86,29 @@ public class APIUserTest {
         Assert.assertEquals(actualMessage, expectedMessage);
     }
 
-    public String hitAPIPostNewUser(UserProfile dataUser) {
-        res = RequestAPIUserManagement.postCreateUser(SetUpEndPoint.getEndPoint(), dataUser); // call API Post New User
+    public String hitAPIPostNewUser(UserPreview dataTestCreateUser) {
+        res = RequestAPIUserManagement.postCreateUser(SetUpEndPoint.getEndPoint(), dataTestCreateUser); // call API Post New User
         System.out.println(res.getBody().asString()); // logging response API
 
         return res.getBody().jsonPath().get("id");
     }
 
-    public String hitAPIPostNewUser(String endPoint, UserProfile dataUser) {
-        res = RequestAPIUserManagement.postCreateUser(endPoint, dataUser); // call API Post New User
+
+    public String hitAPIPostNewUser(String endPoint, UserPreview dataUser) {
+        res = RequestAPIUserManagement.postCreateUser(endPoint, dataUser); //call API Post New User
         System.out.println(res.getBody().asString()); // logging response API
 
         return res.getBody().jsonPath().get("id");
     }
 
-    public void hitAPIUpdateProfileUser(UserProfile dataUser, String idUser) {
-        res = RequestAPIUserManagement.putUser(SetUpEndPoint.getEndPoint(), dataUser, idUser); // call API Put User by
+
+    public void hitAPIUpdateProfileUser(Map<String, String> userData, String idUser) {
+        res = RequestAPIUserManagement.putUser(SetUpEndPoint.getEndPoint(), userData, idUser); // call API Put User by
                                                                                                // Id
         System.out.println(res.getBody().asString()); // logging response API
     }
+    
+  
 
     public void checkResponseBodyCreateUser(UserProfile dataTestUser) throws ParseException {
         System.out.println("test logic for check response body create user");
@@ -117,16 +122,8 @@ public class APIUserTest {
         Assert.assertEquals(actualData.getTitle(), dataTestUser.getTitle());
         Assert.assertEquals(actualData.getFirstName(), dataTestUser.getFirstName());
         Assert.assertEquals(actualData.getLastName(), dataTestUser.getLastName());
-        Assert.assertEquals(actualData.getPicture(), dataTestUser.getPicture());
         Assert.assertEquals(actualData.getGender(), dataTestUser.getGender());
         Assert.assertEquals(actualData.getEmail(), dataTestUser.getEmail());
-        Assert.assertEquals(actualData.getDateOfBirth(), dataTestUser.getDateOfBirth());
-        Assert.assertEquals(actualData.getPhone(), dataTestUser.getPhone());
-        Assert.assertEquals(actualData.getLocation().getStreet(), dataTestUser.getLocation().getStreet());
-        Assert.assertEquals(actualData.getLocation().getCity(), dataTestUser.getLocation().getCity());
-        Assert.assertEquals(actualData.getLocation().getState(), dataTestUser.getLocation().getState());
-        Assert.assertEquals(actualData.getLocation().getCountry(), dataTestUser.getLocation().getCountry());
-        Assert.assertEquals(actualData.getLocation().getTimezone(), dataTestUser.getLocation().getTimezone());
         SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
         Assert.assertEquals(sdfDate.format(sdfTime.parse(actualData.getRegisterDate())), sdfDate.format(new Date()));
@@ -134,29 +131,21 @@ public class APIUserTest {
 
     }
 
-    public void checkResponseBodyUpdateProfileUser(UserProfile dataTestUser, String idUserUpdate)
+    public void checkResponseBodyUpdateProfileUser(UserPreview dataTestUpdateUser, String idUserUpdate)
             throws ParseException {
         System.out.println("test logic for check response body update user");
         // please add code detail
         Gson json = new Gson();
-        UserProfile actualData = json.fromJson(res.getBody().asString(), UserProfile.class);
+        UserPreview actualData = json.fromJson(res.getBody().asString(), UserPreview.class);
         System.out.print("Actual Data : ");
         System.out.println(json.toJson(actualData));
         System.out.print("Test Data : ");
-        System.out.println(json.toJson(dataTestUser));
+        System.out.println(json.toJson(dataTestUpdateUser));
         Assert.assertEquals(actualData.getId(), idUserUpdate);
-        Assert.assertEquals(actualData.getTitle(), dataTestUser.getTitle());
-        Assert.assertEquals(actualData.getFirstName(), dataTestUser.getFirstName());
-        Assert.assertEquals(actualData.getLastName(), dataTestUser.getLastName());
-        Assert.assertEquals(actualData.getPicture(), dataTestUser.getPicture());
-        Assert.assertEquals(actualData.getGender(), dataTestUser.getGender());
-        Assert.assertEquals(actualData.getDateOfBirth(), dataTestUser.getDateOfBirth());
-        Assert.assertEquals(actualData.getPhone(), dataTestUser.getPhone());
-        Assert.assertEquals(actualData.getLocation().getStreet(), dataTestUser.getLocation().getStreet());
-        Assert.assertEquals(actualData.getLocation().getCity(), dataTestUser.getLocation().getCity());
-        Assert.assertEquals(actualData.getLocation().getState(), dataTestUser.getLocation().getState());
-        Assert.assertEquals(actualData.getLocation().getCountry(), dataTestUser.getLocation().getCountry());
-        Assert.assertEquals(actualData.getLocation().getTimezone(), dataTestUser.getLocation().getTimezone());
+        Assert.assertEquals(actualData.getTitle(), dataTestUpdateUser.getTitle());
+        Assert.assertEquals(actualData.getFirstName(), dataTestUpdateUser.getFirstName());
+        Assert.assertEquals(actualData.getLastName(), dataTestUpdateUser.getLastName());
+        Assert.assertEquals(actualData.getGender(), dataTestUpdateUser.getGender());
         SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
         Assert.assertEquals(sdfDate.format(sdfTime.parse(actualData.getRegisterDate())), sdfDate.format(new Date()));

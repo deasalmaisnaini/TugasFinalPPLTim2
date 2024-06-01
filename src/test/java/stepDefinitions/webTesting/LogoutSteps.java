@@ -1,4 +1,4 @@
-package stepDefinitions;
+package stepDefinitions.webTesting;
 
 import org.junit.Assert;
 

@@ -5,7 +5,10 @@ public class UserPreview {
     private String title; // value between : "mr", "ms", "mrs", "miss", "dr", ""
     private String firstName;
     private String lastName;
-    private String picture;
+    private String gender; // value between : "male", "female", ""
+    private String email;
+    private String registerDate;
+    private String updatedDate;
 
     public String getId() {
         return id;
@@ -39,11 +42,36 @@ public class UserPreview {
         this.lastName = lastName;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getGender() {
+        return gender;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(String registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(String updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
 }

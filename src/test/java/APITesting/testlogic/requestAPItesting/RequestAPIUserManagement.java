@@ -1,10 +1,14 @@
 package APITesting.testlogic.requestAPItesting;
 
+import APITesting.model.UserPreview;
 import APITesting.model.UserProfile;
 import com.google.gson.Gson;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+
+import java.util.Map;
+
 import org.json.JSONObject;
 
 public class RequestAPIUserManagement {
@@ -14,7 +18,7 @@ public class RequestAPIUserManagement {
         request = RestAssured.given()
                 .header("Content-Type", "application/json") // set the header tp accept json
                 .header("Accept", "application/json")
-                .header("app-id", "662715f76cae03692fdee7a1");
+                .header("app-id", "662c1846fc6498241d22b20b");
     }
 
     public static Response getListUsers(String endpoint) {
@@ -29,21 +33,23 @@ public class RequestAPIUserManagement {
         return request.when().get(endpoint); // call API to get profile user
     }
 
-    public static Response postCreateUser(String endpoint, UserProfile dataUser) {
+    public static Response postCreateUser(String endpoint, UserPreview dataTestCreateUser) {
         // create data with json format
         Gson payload = new Gson();
-        System.out.println("Gson :" + payload.toJson(dataUser));
+        System.out.println(endpoint);
+        System.out.println("Gson :" + payload.toJson(dataTestCreateUser));
         setUpHeader(); // set up header
-        return request.body(payload.toJson(dataUser)).when().post(endpoint); // call API create user
+        return request.body(payload.toJson(dataTestCreateUser)).when().post(endpoint); // call API create user
     }
 
-    public static Response putUser(String url, UserProfile dataUserUpdate, String idUser) {
-        String endpoint = url + idUser;
+    public static Response putUser(String url, Map<String, String> dataUserUpdate, String idUser) {
+        String endpoint = url + "/" + idUser;
         Gson payload = new Gson();
-        System.out.println("Gson :" + payload.toJson(dataUserUpdate));
-        System.out.println(endpoint);
+        String jsonPayload = payload.toJson(dataUserUpdate);
+        System.out.println("Payload: " + jsonPayload);
+        System.out.println("Endpoint: " + endpoint);
         setUpHeader(); // set up header
-        return request.body(payload.toJson(dataUserUpdate)).when().put(endpoint); // call API edit user
+        return request.body(jsonPayload).when().put(endpoint); // call API edit user
     }
 
     public static Response deleteUserById(String url, String idUser) {

@@ -13,13 +13,13 @@ public class SetUpEndPoint {
     }
 
     public static String getEndPoint() {
+    
         return helperClass.endPoint;
     }
 
     public static void prepareEndPoint(String endPoint) {
         System.out.println("Setting up endpoint: " + endPoint);
-        endPoint = "";
-
+  
         switch (endPoint) {
             case "GET_LIST_USERS":
                 endPoint = EndPoint.GET_LIST_USERS;
@@ -39,6 +39,7 @@ public class SetUpEndPoint {
             default:
                 System.out.println("Please Input Right URL : ");
         }
+        helperClass.endPoint = endPoint;
 
         if (!endPoint.isBlank()) {
             System.out.println("End Point is : " + endPoint);
