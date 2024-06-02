@@ -1,6 +1,11 @@
 # Automatic Testing for DUMMYAPI.IO and Swag Labs
 
-![Project Logo](path_to_your_logo.png)
+<img src="https://drive.google.com/uc?id=1O5vMZ6EybOVWGQKiRE-PSjZf1U0k4y_3" alt="Web Automation Testing" width="700">
+
+[![Collaborators](https://img.shields.io/badge/Collaborators-Falia%20Davina%20%7C%20Dea%20Salma%20%7C%20Syifa%20Khairina-blue)](https://github.com/deasalmaisnaini/WebAutomationTesting)
+[![Technologies](https://img.shields.io/badge/Technologies-Selenium%20%7C%20Cucumber%20%7C%20Maven%20%7C%20Java%20%7C%20JUnit-red)](https://github.com/deasalmaisnaini/WebAutomationTesting)
+
+(https://github.com/deasalmaisnaini/WebAutomationTesting)
 
 This project demonstrates the use of automated testing for the DUMMYAPI.IO and Swag Labs applications. DUMMYAPI.IO provides API endpoints for testing purposes, while Swag Labs is a web-based e-commerce application commonly used for software testing. This README outlines the project's structure, usage, development, and community guidelines.
 
