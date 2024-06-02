@@ -53,54 +53,6 @@ Swag Labs is a web-based e-commerce application used for software testing. It si
 
 This section explains how to use the automated tests for both DUMMYAPI.IO and Swag Labs.
 
-### :electric_plug: Installation
-
-Follow these steps to install the project:
-
-1. **Clone the Repository:**
-   ```sh
-   git clone https://github.com/yourusername/yourproject.git
-2. Navigate to the Project Directory:
-sh
-Copy code
-cd yourproject
-Ensure you have Java 11 and Maven installed.
-Install Dependencies:
-sh
-Copy code
-mvn clean install
-:package: Commands
-Run Tests:
-sh
-Copy code
-mvn test
-:wrench: Development
-This section provides guidelines for contributing to the project.
-
-:notebook: Pre-Requisites
-Ensure the following tools are installed:
-
- Java 11: Programming language used for writing the tests.
- Maven: Dependency management and build automation tool.
- Cucumber: Tool for running automated acceptance tests.
- Selenium: Browser automation tool.
- RestAssured: Java library for testing REST APIs.
-A text editor (e.g., Visual Studio Code, Eclipse) with Cucumber plugin.
-:nut_and_bolt: Development Environment
-Set up the development environment by following these steps:
-
-Clone the Repository:
-sh
-Copy code
-git clone https://github.com/yourusername/yourproject.git
-Navigate to the Project Directory:
-sh
-Copy code
-cd yourproject
-Install Dependencies:
-sh
-Copy code
-mvn clean install
 :file_folder: File Structure
 plaintext
 Copy code
