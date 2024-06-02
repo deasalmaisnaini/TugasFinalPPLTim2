@@ -3,9 +3,6 @@ Berikut adalah struktur proyek `ppl-tugas-final`:
 
 ```
 ppl-tugas-final
-.
-├── .settings                    # Pengaturan spesifik untuk IDE (misalnya Eclipse)
-├── .vscode                      # Pengaturan spesifik untuk Visual Studio Code
 ├── src                          # Direktori utama untuk semua sumber kode dan kode pengujian
 │   └── test                     # Direktori untuk kode pengujian
 │       └── java                 # Direktori untuk kode pengujian dalam bahasa Java
