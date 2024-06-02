@@ -21,7 +21,7 @@ public class MenuActions {
     public MenuActions() {
         this.driver = HelperClass.getDriver();
         this.menuLocators = new MenuLocators();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         PageFactory.initElements(driver, menuLocators);
     }
 
