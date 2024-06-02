@@ -3,8 +3,10 @@ package APITesting.testlogic;
 import APITesting.model.UserPreview;
 import APITesting.model.UserProfile;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import APITesting.helper.SetUpEndPoint;
+import io.opentelemetry.semconv.SemanticAttributes;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,14 +34,23 @@ public class APIUserTest {
     }
 
     // hit api get list users
+    public void hitAPIGetListUsersMissingAppId() {
+        res = RequestAPIUserManagement.getListUsersMissingAppId(SetUpEndPoint.getEndPoint()); // call API Get List User
+        System.out.println(res.getBody().asString()); // logging response API
+    }
+    
+    public void hitAPIGetListUsersInvalidAppId() {
+        res = RequestAPIUserManagement.getListUsersInvalidAppId(SetUpEndPoint.getEndPoint()); // call API Get List User
+        System.out.println(res.getBody().asString()); // logging response API
+    }
+    
     public void hitAPIGetListUsers() {
         res = RequestAPIUserManagement.getListUsers(SetUpEndPoint.getEndPoint()); // call API Get List User
         System.out.println(res.getBody().asString()); // logging response API
     }
 
     /*
-     * check response body list user consist of data (id, title, firstName,
-     * lastName,
+     * check response body lis user consist of data (id, title, firstName, lastName,
      * picture), total, page, and limit
      */
     public void checkResponseBodyListUsers() {
@@ -61,6 +72,8 @@ public class APIUserTest {
         res = RequestAPIUserManagement.getProfileUser(SetUpEndPoint.getEndPoint(), idUser); // call API Get List User
         System.out.println(res.getBody().asString()); // logging response API
     }
+    
+    
 
     public void checkResponseBodyProfileUser() {
         System.out.println("validation response body profile user process normal");
@@ -68,11 +81,11 @@ public class APIUserTest {
 
         // verify data
         Assert.assertNotNull(userProfile.get("id"));
-        assertThat(userProfile.get("title")).isIn("mr", "ms", "mrs", "miss", "dr", "");
-
-        Assert.assertNotNull(userProfile.get("firstName"));
+        assertThat(userProfile.get("title")).isIn("mr", "ms", "mrs", "miss", "dr", ""); 
+                                                                                        
+        Assert.assertNotNull(userProfile.get("firstName")); 
         Assert.assertNotNull(userProfile.get("lastName"));
-        assertThat(userProfile.get("gender")).isIn("male", "female", "");
+        assertThat(userProfile.get("gender")).isIn("male", "female", ""); 
     }
 
     public void checkResponseBodyGetProfileUserFailed(String expectedMessage) {
@@ -84,41 +97,45 @@ public class APIUserTest {
         System.out.println("actual message: " + actualMessage);
         Assert.assertEquals(actualMessage, expectedMessage);
     }
+    
 
     public Response hitAPIPostNewUser(String currentEndpoint, UserPreview dataTestCreateUser) {
-        // Logging untuk memastikan parameter tidak null
+    	  // Logging untuk memastikan parameter tidak null
         System.out.println("Endpoint: " + currentEndpoint);
         System.out.println("User Data: " + dataTestCreateUser);
-
+        
         if (dataTestCreateUser.getFirstName().contains("Nathan")) {
             res = RequestAPIUserManagement.postCreateUserAppIDEmpty(currentEndpoint, dataTestCreateUser);
         } else {
             res = RequestAPIUserManagement.postCreateUserAppIDValid(currentEndpoint, dataTestCreateUser);
         }
-
+        
         // Logging response API
         System.out.println("API Response: " + res.getBody().asString());
-
+        
         return res;
     }
 
+ 
     public String hitAPIPostNewUserForUpdate(String endPoint, UserPreview dataUser) {
-        res = RequestAPIUserManagement.postCreateUserAppIDValid(endPoint, dataUser); // call API Post New User
+        res = RequestAPIUserManagement.postCreateUserAppIDValid(endPoint, dataUser); //call API Post New User
         System.out.println("halo" + res.getBody().asString()); // logging response API
+        
 
         return res.getBody().jsonPath().get("id");
     }
+
 
     public void hitAPIUpdateProfileUser(Map<String, String> userData, String idUser) {
         res = RequestAPIUserManagement.putUser(SetUpEndPoint.getEndPoint(), userData, idUser); // call API Put User by
                                                                                                // Id
         System.out.println(res.getBody().asString()); // logging response API
     }
-
+    
     public void checkErrorInResponseBody(String expectedErrorMessage) {
         System.out.println("Checking error message in response body");
         JsonObject responseBody = new Gson().fromJson(res.getBody().asString(), JsonObject.class);
-
+        
         if (responseBody.has("error")) {
             String actualErrorMessage = responseBody.get("error").getAsString();
             System.out.println("Actual error message: " + actualErrorMessage);
@@ -128,6 +145,8 @@ public class APIUserTest {
             Assert.fail("No error message found in response body");
         }
     }
+
+  
 
     public void checkResponseBodyCreateUser(UserPreview dataTestCreateUser) throws ParseException {
         System.out.println("test logic for check response body create user");
@@ -148,6 +167,8 @@ public class APIUserTest {
         Assert.assertEquals(actualData.getRegisterDate().substring(0, 10), currentDate);
         Assert.assertEquals(actualData.getUpdatedDate().substring(0, 10), currentDate);
     }
+
+    
 
     public void checkResponseBodyUpdateProfileUser(UserPreview dataTestUpdateUser, String idUserUpdate)
             throws ParseException {
@@ -170,8 +191,22 @@ public class APIUserTest {
         Assert.assertEquals(actualData.getUpdatedDate().substring(0, 10), currentDate);
     }
 
+    
+
     public void hitAPIDeleteUserById(String idUser) {
         res = RequestAPIUserManagement.deleteUserById(SetUpEndPoint.getEndPoint(), idUser);
+        System.out.println("response after hit API delete");
+        System.out.println(res.getBody().asString());
+    }
+    
+    public void hitAPIDeleteUserByIdInvalidAppId(String idUser) {
+        res = RequestAPIUserManagement.deleteUserByIdInvalidAppId(SetUpEndPoint.getEndPoint(), idUser);
+        System.out.println("response after hit API delete");
+        System.out.println(res.getBody().asString());
+    }
+    
+    public void hitAPIDeleteUserByIdMissingAppid(String idUser) {
+        res = RequestAPIUserManagement.deleteUserByIdInvalidAppIdMissing(SetUpEndPoint.getEndPoint(), idUser);
         System.out.println("response after hit API delete");
         System.out.println(res.getBody().asString());
     }
@@ -181,5 +216,8 @@ public class APIUserTest {
         // please add code detail
         System.out.println("id Delete:" + res.getBody());
         Assert.assertNotNull(res.getBody().jsonPath().get("id"));
+
     }
+
+
 }

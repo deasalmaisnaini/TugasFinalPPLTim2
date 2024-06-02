@@ -118,8 +118,54 @@ public class APIUserStep {
 
 	}
 
-	/********************* Get ******************************/
+/********************* Get ******************************/
 
-	/********************* Delete ******************************/
+@When("hit api get list users {string}")
+public void hit_api_get_list_users(String appid) {
+
+	if (appid.equalsIgnoreCase("Missing")) {
+		apiUser.hitAPIGetListUsersMissingAppId();
+		;
+	} else if (appid.equalsIgnoreCase("Invalid")) {
+		apiUser.hitAPIGetListUsersInvalidAppId();
+	}
+}
+
+@When("hit api get users by user id {string}")
+public void hit_api_get_users_by_user_id(String idUser) {
+	if (idUser.equalsIgnoreCase("Valid")) {
+		apiUser.hitAPIGetProfileUser(currentUserID);
+	} else {
+		apiUser.hitAPIGetProfileUser(idUser);
+	}
+}
+
+@Then("validation response body get user by id")
+public void validation_response_body_get_user_by_id() {
+	apiUser.checkResponseBodyProfileUser();
+}
+
+/********************* Delete ******************************/
+
+@When("hit api delete user {string} and {string}")
+public void hit_api_delete_user_and(String appid, String userid) {
+
+	if (appid.equalsIgnoreCase("Missing") && userid.equalsIgnoreCase("Valid")) {
+		apiUser.hitAPIDeleteUserByIdMissingAppid(currentUserID);
+	} else if (appid.equalsIgnoreCase("Invalid") && userid.equalsIgnoreCase("Valid")) {
+		apiUser.hitAPIDeleteUserByIdInvalidAppId(currentUserID);
+	} else if (appid.equalsIgnoreCase("Valid") && userid.equalsIgnoreCase("NotRegistered")) {
+		apiUser.hitAPIDeleteUserById("60d0fe4f5321236168a109cb");
+	} else if (appid.equalsIgnoreCase("Valid") && userid.equalsIgnoreCase("Invalid")) {
+		apiUser.hitAPIDeleteUserById("1234567abcd");
+	} else if (appid.equalsIgnoreCase("Valid") && userid.equalsIgnoreCase("Valid")) {
+		apiUser.hitAPIDeleteUserById(currentUserID);
+	}
+}
+
+@Then("validation response body delete user by id")
+public void validation_response_body_delete_user_by_id() {
+	apiUser.checkResponseBodyDeleteUser(currentUserID);
+}
 
 }
