@@ -18,6 +18,7 @@ Feature: Swag Lab Cart
         And There is a checkout button
 
     Scenario: Verify navigation from cart into dashboard
+        When User clicks on the cart icon at the top right of the dashboard page
         When User clicks on continue shopping button
         Then The user sees the name swag labs
         And Displays the product catalogue

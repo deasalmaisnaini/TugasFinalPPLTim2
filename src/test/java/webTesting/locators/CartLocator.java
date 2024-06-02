@@ -18,7 +18,7 @@ public class CartLocator {
     @FindBy(className = "shopping_cart_link")
     public WebElement CartIcon;
 
-    @FindBy(id = "continue-shopping")
+    @FindBy(xpath = "//*[@id=\"continue-shopping\"]")
     public WebElement continueShoppingButton;
 
     @FindBy(id = "checkout")
