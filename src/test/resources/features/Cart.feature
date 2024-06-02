@@ -9,19 +9,24 @@ Feature: Swag Lab Cart
 
     Background:
         Given User has opened swag labs browser
-        And User has logged into the application
-        And User has navigated to the cart page
+        And User has log in to the application
+
+    Scenario: Verify cart page
+        When User clicks on the cart icon at the top right of the dashboard page
+        Then Displays the list of product with remove button under each product
+        And There is a continue shopping button
+        And There is a checkout button
 
     Scenario: Verify navigation from cart into dashboard
         When User clicks on continue shopping button
         Then The user sees the name swag labs
         And Displays the product catalogue
 
-    Scenario: Verify navigation from cart into checkout information page. Cart is not empty
-        When User clicks on checkout button
-        Then Displays fields for inputting first name, last name and Zip/Postal Code that have not been filled in
-        And There is a cancel button
-
-    Scenario: Verify navigation from cart into checkout information page. Cart is empty
-        When User clicks on checkout button
-        Then Stay on the cart page
+    Scenario: Add 3 types of product with a quantity of 1 to the cart
+        When User clicks add to cart button on product "1" once
+        And User clicks add to cart button on product "2" once
+        And User clicks add to cart button on product "3" once
+        And User clicks on the cart icon at the top right of the dashboard page
+        Then Displays the list of 3 products with remove button under each product
+        And There is a continue shopping button
+        And There is a checkout button
