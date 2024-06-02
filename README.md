@@ -3,58 +3,26 @@ Berikut adalah struktur proyek `ppl-tugas-final`:
 
 ```
 ppl-tugas-final
-├── src
-│ └── test
-│ └── java
-│ ├── APITesting.helper
-│ │ ├── SetUpEndPoint.java
-│ │ └── Utility.java
-│ ├── APITesting.model
-│ │ ├── ListUser.java
-│ │ ├── Location.java
-│ │ ├── UserPreview.java
-│ │ └── UserProfile.java
-│ ├── APITesting.testlogic
-│ │ ├── APITestProcessGeneric.java
-│ │ └── APIUserTest.java
-│ ├── APITesting.testlogic.requestAPItesting
-│ ├── runner
-│ │ └── CucumberRunnerTest.java
-│ ├── stepDefinitions
-│ │ ├── Hooks.java
-│ │ ├── apitesting
-│ │ │ └── APIUserStep.java
-│ │ ├── webTesting
-│ │ │ ├── CartSteps.java
-│ │ │ ├── CheckoutSteps.java
-│ │ │ ├── LoginSteps.java
-│ │ │ ├── LogoutSteps.java
-│ │ │ ├── MenuSteps.java
-│ │ │ └── ProductDetailSteps.java
-│ ├── webTesting.actions
-│ │ ├── LoginPageActions.java
-│ │ ├── LogoutPageActions.java
-│ │ ├── MenuActions.java
-│ │ └── ProductDetailActions.java
-│ ├── webTesting.locators
-│ │ ├── EndToEndLocators.java
-│ │ ├── LoginPageLocators.java
-│ │ ├── LogoutPageLocators.java
-│ │ ├── MenuLocators.java
-│ │ └── ProductDetailLocators.java
-│ ├── webTesting.utils
-│ │ └── HelperClass.java
-│ └── resources
-│ └── features
-│ ├── create.feature
-│ ├── delete.feature
-│ ├── EndToEnd.feature
-│ ├── get.feature
-│ ├── LoginPage.feature
-│ ├── LogoutPage.feature
-│ ├── Menu.feature
-│ ├── ProductDetail.feature
-│ └── update.feature
-├── JRE System Library [JavaSE-1.8]
-└── Maven Dependencies
+.
+├── .settings                    # Pengaturan spesifik untuk IDE (misalnya Eclipse)
+├── .vscode                      # Pengaturan spesifik untuk Visual Studio Code
+├── src                          # Direktori utama untuk semua sumber kode dan kode pengujian
+│   └── test                     # Direktori untuk kode pengujian
+│       └── java                 # Direktori untuk kode pengujian dalam bahasa Java
+│           ├── APITesting       # Direktori untuk pengujian API
+│           │   ├── helper       # Subdirektori untuk kelas-kelas bantu
+│           │   ├── model        # Subdirektori untuk kelas-kelas model
+│           │   └── testlogic    # Subdirektori untuk logika pengujian API
+│           ├── runner           # Direktori untuk kelas-kelas yang menjalankan tes
+│           ├── stepDefinitions  # Direktori untuk definisi langkah-langkah pengujian
+│           │   ├── apitesting   # Subdirektori untuk definisi langkah pengujian API
+│           │   ├── webTesting   # Subdirektori untuk definisi langkah pengujian web
+│           │   └── Hooks.java   # Kelas Java untuk hooks dalam pengujian (misalnya setup dan teardown)
+│           └── webTesting       # Direktori untuk pengujian web
+│               ├── actions      # Subdirektori untuk kelas-kelas yang melakukan aksi pada web
+│               ├── locators     # Subdirektori untuk kelas-kelas yang mendefinisikan locator elemen web
+│               └── utils        # Subdirektori untuk kelas-kelas utilitas yang mendukung pengujian web
+├── resources                    # Direktori untuk sumber daya tambahan
+└── pom.xml                      # File konfigurasi Maven untuk proyek ini
+
 ```
