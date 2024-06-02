@@ -1,4 +1,4 @@
-# Automatic Testing for API USER CONTROLLER dan Swag Labs
+# Automatic Testing for API User Controller dan Swag Labs
 
 <img src="https://drive.google.com/uc?id=1O5vMZ6EybOVWGQKiRE-PSjZf1U0k4y_3" alt="Web Automation Testing" width="700">
 
