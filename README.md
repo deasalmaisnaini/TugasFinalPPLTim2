@@ -1,4 +1,3 @@
-## Project Structure
 ppl-tugas-final
 ├── src
 │   └── test
@@ -54,4 +53,3 @@ ppl-tugas-final
 │               └── update.feature
 ├── JRE System Library [JavaSE-1.8]
 └── Maven Dependencies
-
