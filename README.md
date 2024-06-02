@@ -54,8 +54,7 @@ Swag Labs is a web-based e-commerce application used for software testing. It si
 This section explains how to use the automated tests for both DUMMYAPI.IO and Swag Labs.
 
 :file_folder: File Structure
-plaintext
-Copy code
+```
 ppl-tugas-final
 ├── src                          # Main directory for all source code and test code
 │   └── test                     # Directory for test code
@@ -75,6 +74,8 @@ ppl-tugas-final
 │               └── utils        # Subdirectory for utility classes supporting web testing
 ├── resources                    # Directory for additional resources
 └── pom.xml                      # Maven configuration file for this project
+```
+
 :hammer: Build
 To build the project, run:
 
