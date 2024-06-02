@@ -21,14 +21,14 @@ public class Hooks {
     }
 
     // This method will run once before any web test scenario.
-    @Before("@web")
+    @Before("@webtesting")
     public void setUpWeb() {
         System.out.println("Before web test");
         HelperClass.setUpDriver();
     }
 
     // This method will run after each web test scenario.
-    @After("@web")
+    @After("@webtesting")
     public void tearDownWeb(Scenario scenario) {
         System.out.println("After web test");
         if (scenario.isFailed()) {

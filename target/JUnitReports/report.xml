@@ -1,116 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Cucumber" time="16.931" tests="10" skipped="0" failures="2" errors="0">
-<testcase classname="Create User Data" name="only data with required fields is filled in with the first name field empty" time="5.941">
+<testsuite name="Cucumber" time="25.582" tests="3" skipped="0" failures="0" errors="0">
+<testcase classname="Swag Lab Checkout" name="Verify checkout page" time="10.786">
 <system-out><![CDATA[
-Given prepare url for "CREATE_USER".........................................passed
-When hit api post create new user with Data User "1"........................passed
-Then validation status code api user is equals 400..........................passed
-Then validation response body error with message "BODY_NOT_VALID"...........passed
+Given User has opened swag labs browser.....................................passed
+And User has logged into the application....................................passed
+Given User find the product "1" and click the add to cart button............passed
+When User has navigated to the Cart page....................................passed
+And User clicks on the checkout button......................................passed
+Then The fields for inputting first name, last name, and Zip or Postal Code are displayed and have not been filled in.passed
 ]]></system-out>
 </testcase>
-<testcase classname="Create User Data" name="only data with required fields is filled in with the last name field empty" time="0.376">
+<testcase classname="Swag Lab Checkout" name="Check for checkout information is filled with valid data (no empty field)" time="6.527">
 <system-out><![CDATA[
-Given prepare url for "CREATE_USER".........................................passed
-When hit api post create new user with Data User "2"........................passed
-Then validation status code api user is equals 400..........................passed
-Then validation response body error with message "BODY_NOT_VALID"...........passed
+Given User has opened swag labs browser.....................................passed
+And User has logged into the application....................................passed
+Given User find the product "2" and click the add to cart button............passed
+And User has navigated to the checkout information page.....................passed
+When User enters First Name, Last Name, and Zip or Postal Code..............passed
+And User clicks on the continue button......................................passed
+Then A list of products to be checked out is displayed......................passed
+And Payment information, shipping information, and the total price are displayed.passed
+And There is a cancel button................................................passed
 ]]></system-out>
 </testcase>
-<testcase classname="Create User Data" name="Fill in only the required data with gender male" time="0.589">
+<testcase classname="Swag Lab Checkout" name="Verify navigation shipping information into checkout complete" time="7.673">
 <system-out><![CDATA[
-Given prepare url for "CREATE_USER".........................................passed
-When hit api post create new user with Data User "3"........................passed
-Then validation status code api user is equals 200..........................passed
-Then validation response body post create new user..........................passed
-]]></system-out>
-</testcase>
-<testcase classname="Create User Data" name="Fill in only the required data with gender female" time="0.398">
-<system-out><![CDATA[
-Given prepare url for "CREATE_USER".........................................passed
-When hit api post create new user with Data User "4"........................passed
-Then validation status code api user is equals 200..........................passed
-Then validation response body post create new user..........................passed
-]]></system-out>
-</testcase>
-<testcase classname="Create User Data" name="Fill in only the required data with other gender" time="0.368">
-<system-out><![CDATA[
-Given prepare url for "CREATE_USER".........................................passed
-When hit api post create new user with Data User "5"........................passed
-Then validation status code api user is equals 200..........................passed
-Then validation response body post create new user..........................passed
-]]></system-out>
-</testcase>
-<testcase classname="Update User" name="Test update user valid - Example #1.1" time="4.951">
-<system-out><![CDATA[
-Given prepare url for "UPDATE_USER".........................................passed
-And hit api post create new user for create new user........................passed
-When hit api update profile user with data..................................passed
-Then validation status code api user is equals 200..........................passed
-Then validation response body update user...................................passed
-]]></system-out>
-</testcase>
-<testcase classname="Update User" name="Test update user valid - Example #1.2" time="0.878">
-<system-out><![CDATA[
-Given prepare url for "UPDATE_USER".........................................passed
-And hit api post create new user for create new user........................passed
-When hit api update profile user with data..................................passed
-Then validation status code api user is equals 200..........................passed
-Then validation response body update user...................................passed
-]]></system-out>
-</testcase>
-<testcase classname="Update User" name="Test update user valid - Example #1.3" time="0.924">
-<system-out><![CDATA[
-Given prepare url for "UPDATE_USER".........................................passed
-And hit api post create new user for create new user........................passed
-When hit api update profile user with data..................................passed
-Then validation status code api user is equals 200..........................passed
-Then validation response body update user...................................passed
-]]></system-out>
-</testcase>
-<testcase classname="Update User" name="Test update user invalid - Example #1.1" time="0.83">
-<failure type="java.lang.AssertionError" message="expected [400] but found [200]">
-<![CDATA[java.lang.AssertionError: expected [400] but found [200]
-	at org.testng.Assert.fail(Assert.java:111)
-	at org.testng.Assert.failNotEquals(Assert.java:1578)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
-	at org.testng.Assert.assertEquals(Assert.java:132)
-	at org.testng.Assert.assertEquals(Assert.java:1419)
-	at org.testng.Assert.assertEquals(Assert.java:1383)
-	at org.testng.Assert.assertEquals(Assert.java:1429)
-	at APITesting.testlogic.APITestProcessGeneric.validationStatusCode(APITestProcessGeneric.java:28)
-	at stepDefinitions.apitesting.APIUserStep.validationStatusCodeApiUserIsEquals(APIUserStep.java:44)
-	at ✽.validation status code api user is equals 400(file:///C:/Users/Asus/OneDrive/Documents/SEMESTER%206/PPL/TUBES/TugasFinalPPLTim2%20v1/src/test/resources/features/update.feature:26)
-]]>
-</failure>
-<system-out><![CDATA[
-Given prepare url for "UPDATE_USER".........................................passed
-And hit api post create new user for create new user........................passed
-When hit api update profile user with data..................................passed
-Then validation status code api user is equals 400..........................failed
-Then validation response body error with message "BODY_NOT_VALID"...........skipped
-]]></system-out>
-</testcase>
-<testcase classname="Update User" name="Test update user invalid - Example #1.2" time="0.842">
-<failure type="java.lang.AssertionError" message="expected [400] but found [200]">
-<![CDATA[java.lang.AssertionError: expected [400] but found [200]
-	at org.testng.Assert.fail(Assert.java:111)
-	at org.testng.Assert.failNotEquals(Assert.java:1578)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:150)
-	at org.testng.Assert.assertEquals(Assert.java:132)
-	at org.testng.Assert.assertEquals(Assert.java:1419)
-	at org.testng.Assert.assertEquals(Assert.java:1383)
-	at org.testng.Assert.assertEquals(Assert.java:1429)
-	at APITesting.testlogic.APITestProcessGeneric.validationStatusCode(APITestProcessGeneric.java:28)
-	at stepDefinitions.apitesting.APIUserStep.validationStatusCodeApiUserIsEquals(APIUserStep.java:44)
-	at ✽.validation status code api user is equals 400(file:///C:/Users/Asus/OneDrive/Documents/SEMESTER%206/PPL/TUBES/TugasFinalPPLTim2%20v1/src/test/resources/features/update.feature:26)
-]]>
-</failure>
-<system-out><![CDATA[
-Given prepare url for "UPDATE_USER".........................................passed
-And hit api post create new user for create new user........................passed
-When hit api update profile user with data..................................passed
-Then validation status code api user is equals 400..........................failed
-Then validation response body error with message "BODY_NOT_VALID"...........skipped
+Given User has opened swag labs browser.....................................passed
+And User has logged into the application....................................passed
+Given User find the product "3" and click the add to cart button............passed
+And User has navigated to the shipping information page.....................passed
+When User clicks on finish button...........................................passed
+Then Displays Thank you for your order! message with checklist and circle logo on the top of it.passed
 ]]></system-out>
 </testcase>
 </testsuite>
