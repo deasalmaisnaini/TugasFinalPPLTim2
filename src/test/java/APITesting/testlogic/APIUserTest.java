@@ -3,10 +3,8 @@ package APITesting.testlogic;
 import APITesting.model.UserPreview;
 import APITesting.model.UserProfile;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import APITesting.helper.SetUpEndPoint;
-import io.opentelemetry.semconv.SemanticAttributes;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,7 +38,8 @@ public class APIUserTest {
     }
 
     /*
-     * check response body lis user consist of data (id, title, firstName, lastName,
+     * check response body list user consist of data (id, title, firstName,
+     * lastName,
      * picture), total, page, and limit
      */
     public void checkResponseBodyListUsers() {
@@ -69,11 +68,11 @@ public class APIUserTest {
 
         // verify data
         Assert.assertNotNull(userProfile.get("id"));
-        assertThat(userProfile.get("title")).isIn("mr", "ms", "mrs", "miss", "dr", ""); 
-                                                                                        
-        Assert.assertNotNull(userProfile.get("firstName")); 
+        assertThat(userProfile.get("title")).isIn("mr", "ms", "mrs", "miss", "dr", "");
+
+        Assert.assertNotNull(userProfile.get("firstName"));
         Assert.assertNotNull(userProfile.get("lastName"));
-        assertThat(userProfile.get("gender")).isIn("male", "female", ""); 
+        assertThat(userProfile.get("gender")).isIn("male", "female", "");
     }
 
     public void checkResponseBodyGetProfileUserFailed(String expectedMessage) {
@@ -86,31 +85,51 @@ public class APIUserTest {
         Assert.assertEquals(actualMessage, expectedMessage);
     }
 
-    public String hitAPIPostNewUser(UserPreview dataTestCreateUser) {
-        res = RequestAPIUserManagement.postCreateUser(SetUpEndPoint.getEndPoint(), dataTestCreateUser); // call API Post New User
-        System.out.println(res.getBody().asString()); // logging response API
+    public Response hitAPIPostNewUser(String currentEndpoint, UserPreview dataTestCreateUser) {
+        // Logging untuk memastikan parameter tidak null
+        System.out.println("Endpoint: " + currentEndpoint);
+        System.out.println("User Data: " + dataTestCreateUser);
+
+        if (dataTestCreateUser.getFirstName().contains("Nathan")) {
+            res = RequestAPIUserManagement.postCreateUserAppIDEmpty(currentEndpoint, dataTestCreateUser);
+        } else {
+            res = RequestAPIUserManagement.postCreateUserAppIDValid(currentEndpoint, dataTestCreateUser);
+        }
+
+        // Logging response API
+        System.out.println("API Response: " + res.getBody().asString());
+
+        return res;
+    }
+
+    public String hitAPIPostNewUserForUpdate(String endPoint, UserPreview dataUser) {
+        res = RequestAPIUserManagement.postCreateUserAppIDValid(endPoint, dataUser); // call API Post New User
+        System.out.println("halo" + res.getBody().asString()); // logging response API
 
         return res.getBody().jsonPath().get("id");
     }
-
-
-    public String hitAPIPostNewUser(String endPoint, UserPreview dataUser) {
-        res = RequestAPIUserManagement.postCreateUser(endPoint, dataUser); //call API Post New User
-        System.out.println(res.getBody().asString()); // logging response API
-
-        return res.getBody().jsonPath().get("id");
-    }
-
 
     public void hitAPIUpdateProfileUser(Map<String, String> userData, String idUser) {
         res = RequestAPIUserManagement.putUser(SetUpEndPoint.getEndPoint(), userData, idUser); // call API Put User by
                                                                                                // Id
         System.out.println(res.getBody().asString()); // logging response API
     }
-    
-  
 
-    public void checkResponseBodyCreateUser(UserProfile dataTestUser) throws ParseException {
+    public void checkErrorInResponseBody(String expectedErrorMessage) {
+        System.out.println("Checking error message in response body");
+        JsonObject responseBody = new Gson().fromJson(res.getBody().asString(), JsonObject.class);
+
+        if (responseBody.has("error")) {
+            String actualErrorMessage = responseBody.get("error").getAsString();
+            System.out.println("Actual error message: " + actualErrorMessage);
+            System.out.println("Expected error message: " + expectedErrorMessage);
+            Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
+        } else {
+            Assert.fail("No error message found in response body");
+        }
+    }
+
+    public void checkResponseBodyCreateUser(UserPreview dataTestCreateUser) throws ParseException {
         System.out.println("test logic for check response body create user");
         // please add code detail
         Gson json = new Gson();
@@ -118,17 +137,16 @@ public class APIUserTest {
         System.out.print("Actual Data : ");
         System.out.println(json.toJson(actualData));
         System.out.print("Test Data : ");
-        System.out.println(json.toJson(dataTestUser));
-        Assert.assertEquals(actualData.getTitle(), dataTestUser.getTitle());
-        Assert.assertEquals(actualData.getFirstName(), dataTestUser.getFirstName());
-        Assert.assertEquals(actualData.getLastName(), dataTestUser.getLastName());
-        Assert.assertEquals(actualData.getGender(), dataTestUser.getGender());
-        Assert.assertEquals(actualData.getEmail(), dataTestUser.getEmail());
-        SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        Assert.assertEquals(sdfDate.format(sdfTime.parse(actualData.getRegisterDate())), sdfDate.format(new Date()));
-        Assert.assertEquals(sdfDate.format(sdfTime.parse(actualData.getUpdatedDate())), sdfDate.format(new Date()));
-
+        System.out.println(json.toJson(dataTestCreateUser));
+        Assert.assertEquals(actualData.getTitle(), dataTestCreateUser.getTitle());
+        Assert.assertEquals(actualData.getFirstName(), dataTestCreateUser.getFirstName());
+        Assert.assertEquals(actualData.getLastName(), dataTestCreateUser.getLastName());
+        Assert.assertEquals(actualData.getGender(), dataTestCreateUser.getGender());
+        Assert.assertEquals(actualData.getEmail(), dataTestCreateUser.getEmail());
+        // Validate if registerDate and updatedDate are today's date
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        Assert.assertEquals(actualData.getRegisterDate().substring(0, 10), currentDate);
+        Assert.assertEquals(actualData.getUpdatedDate().substring(0, 10), currentDate);
     }
 
     public void checkResponseBodyUpdateProfileUser(UserPreview dataTestUpdateUser, String idUserUpdate)
@@ -146,11 +164,10 @@ public class APIUserTest {
         Assert.assertEquals(actualData.getFirstName(), dataTestUpdateUser.getFirstName());
         Assert.assertEquals(actualData.getLastName(), dataTestUpdateUser.getLastName());
         Assert.assertEquals(actualData.getGender(), dataTestUpdateUser.getGender());
-        SimpleDateFormat sdfTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        Assert.assertEquals(sdfDate.format(sdfTime.parse(actualData.getRegisterDate())), sdfDate.format(new Date()));
-        Assert.assertEquals(sdfDate.format(sdfTime.parse(actualData.getUpdatedDate())), sdfDate.format(new Date()));
-
+        // Validate if registerDate and updatedDate are today's date
+        String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        Assert.assertEquals(actualData.getRegisterDate().substring(0, 10), currentDate);
+        Assert.assertEquals(actualData.getUpdatedDate().substring(0, 10), currentDate);
     }
 
     public void hitAPIDeleteUserById(String idUser) {
@@ -164,7 +181,5 @@ public class APIUserTest {
         // please add code detail
         System.out.println("id Delete:" + res.getBody());
         Assert.assertNotNull(res.getBody().jsonPath().get("id"));
-
     }
-
 }

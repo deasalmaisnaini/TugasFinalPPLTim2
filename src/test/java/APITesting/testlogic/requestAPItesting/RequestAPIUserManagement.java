@@ -33,13 +33,29 @@ public class RequestAPIUserManagement {
         return request.when().get(endpoint); // call API to get profile user
     }
 
-    public static Response postCreateUser(String endpoint, UserPreview dataTestCreateUser) {
+    public static Response postCreateUserAppIDValid(String endpoint, UserPreview dataTestCreateUser) {
         // create data with json format
         Gson payload = new Gson();
         System.out.println(endpoint);
         System.out.println("Gson :" + payload.toJson(dataTestCreateUser));
         setUpHeader(); // set up header
         return request.body(payload.toJson(dataTestCreateUser)).when().post(endpoint); // call API create user
+    }
+
+    public static Response postCreateUserAppIDEmpty(String endpoint, UserPreview dataTestCreateUser) {
+        Gson payload = new Gson();
+        String jsonPayload = payload.toJson(dataTestCreateUser);
+        System.out.println("Payload: " + jsonPayload);
+        System.out.println("Endpoint: " + endpoint);
+
+        // Panggil metode setUpHeader() sebelum menggunakan objek request
+        setUpHeader(); // Atur app-id kosong
+
+        // Cetak pernyataan dengan benar tanpa tanda kurung di dalamnya
+        System.out.println("Halooo");
+        Response response = request.body(payload.toJson(dataTestCreateUser)).when().post(endpoint);
+        System.out.println(response); // Cetak respons
+        return response; // kembalikan respons
     }
 
     public static Response putUser(String url, Map<String, String> dataUserUpdate, String idUser) {

@@ -28,9 +28,99 @@ public class APITestProcessGeneric {
         Assert.assertEquals(currentRes.getStatusCode(), expectedStatusCode);
     }
 
-    public static UserPreview prepareDataUserTestPost() {
+    public static UserPreview prepareDataUserTestPost1() {
         UserPreview dataUser = new UserPreview();
-       
+
+        // prepare data test user
+        // information user
+        String firstName = "";
+        String lastName = "Smith";
+        String gender = "male";
+        String email = Utility.generateRandomEmail(); // generate email
+
+        dataUser.setFirstName(firstName);
+        dataUser.setLastName(lastName);
+        dataUser.setGender(gender);
+        dataUser.setEmail(email);
+
+        return dataUser;
+    }
+
+    public static UserPreview prepareDataUserTestPost2() {
+        UserPreview dataUser = new UserPreview();
+
+        // prepare data test user
+        // information user
+        String firstName = "Nathan";
+        String lastName = "";
+        String gender = "male";
+        String email = Utility.generateRandomEmail(); // generate email
+
+        dataUser.setFirstName(firstName);
+        dataUser.setLastName(lastName);
+        dataUser.setGender(gender);
+        dataUser.setEmail(email);
+
+        return dataUser;
+    }
+
+    public static UserPreview prepareDataUserTestPost3() {
+        UserPreview dataUser = new UserPreview();
+
+        // prepare data test user
+        // information user
+        String firstName = "Joshua";
+        String lastName = "Smith";
+        String gender = "male";
+        String email = Utility.generateRandomEmail(); // generate email
+
+        dataUser.setFirstName(firstName);
+        dataUser.setLastName(lastName);
+        dataUser.setGender(gender);
+        dataUser.setEmail(email);
+
+        return dataUser;
+    }
+
+    public static UserPreview prepareDataUserTestPost4() {
+        UserPreview dataUser = new UserPreview();
+
+        // prepare data test user
+        // information user
+        String firstName = "Sophie";
+        String lastName = "Taylor";
+        String gender = "female";
+        String email = Utility.generateRandomEmail(); // generate email
+
+        dataUser.setFirstName(firstName);
+        dataUser.setLastName(lastName);
+        dataUser.setGender(gender);
+        dataUser.setEmail(email);
+
+        return dataUser;
+    }
+
+    public static UserPreview prepareDataUserTestPost5() {
+        UserPreview dataUser = new UserPreview();
+
+        // prepare data test user
+        // information user
+        String firstName = "Alex";
+        String lastName = "Johnson";
+        String gender = "other";
+        String email = Utility.generateRandomEmail(); // generate email
+
+        dataUser.setFirstName(firstName);
+        dataUser.setLastName(lastName);
+        dataUser.setGender(gender);
+        dataUser.setEmail(email);
+
+        return dataUser;
+    }
+
+    public static UserPreview prepareDataUserTestPostForUpdate() {
+        UserPreview dataUser = new UserPreview();
+
         // prepare data test user
         // information user
         String title = "miss";
@@ -38,8 +128,8 @@ public class APITestProcessGeneric {
         String lastName = "Joshushi";
         String gender = "male";
         String email = Utility.generateRandomEmail(); // generate email
-       
 
+        // Set initial values
         dataUser.setTitle(title);
         dataUser.setFirstName(firstName);
         dataUser.setLastName(lastName);
@@ -48,12 +138,9 @@ public class APITestProcessGeneric {
 
         return dataUser;
     }
-  
-
 
     public static UserPreview prepareDataUserTestUpdate(String fieldToUpdate, String newValue) {
         UserPreview dataUser = new UserPreview();
-        
 
         // prepare data test user
         // information user
@@ -61,15 +148,14 @@ public class APITestProcessGeneric {
         String firstName = "Hong Joshua";
         String lastName = "Joshushi";
         String gender = "male";
-       
+
         // Set initial values
         dataUser.setTitle(title);
         dataUser.setFirstName(firstName);
         dataUser.setLastName(lastName);
         dataUser.setGender(gender);
 
-
-     // Update specific field
+        // Update specific field
         switch (fieldToUpdate) {
             case "title":
                 dataUser.setTitle(newValue);
@@ -81,10 +167,10 @@ public class APITestProcessGeneric {
                 dataUser.setLastName(newValue);
                 break;
             case "registerDate":
-               dataUser.setRegisterDate(newValue);
+                dataUser.setRegisterDate(newValue);
                 break;
             default:
-               dataUser.setRegisterDate(newValue);
+                dataUser.setRegisterDate(newValue);
                 throw new IllegalArgumentException("Field " + fieldToUpdate + " is not supported.");
         }
 

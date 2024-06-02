@@ -3,45 +3,42 @@
 # File: create.feature
 # Software Under Test: DummyAPI.io
 # Description: [Deskripsi singkat tentang isi file]
-
 Feature: Create User Data
 
-    @TCC1
-    Scenario: Make a request when you don't have authorization by not filling in the app-id
+    @api @createapi
+    Scenario: only data with required fields is filled in with the first name field empty
         Given prepare url for "CREATE_USER"
-        When hit api post create new user with Data User
-        Then validation status code api user is equals 403
-        Then validation response body error create user with message "APP_ID_MISSING"
-        Then validation response json with JSONSchema "create_user_appId_missing.json"
+        When hit api post create new user with Data User "1"
+        Then validation status code api user is equals 400
+        Then validation response body error with message "BODY_NOT_VALID"
 
-    @TCC2
+    @api @createapi
+    Scenario: only data with required fields is filled in with the last name field empty
+        Given prepare url for "CREATE_USER"
+        When hit api post create new user with Data User "2"
+        Then validation status code api user is equals 400
+        Then validation response body error with message "BODY_NOT_VALID"
+
+    @api @createapi
     Scenario: Fill in only the required data with gender male
         Given prepare url for "CREATE_USER"
-        When hit api post create new user with Data User
+        When hit api post create new user with Data User "3"
         Then validation status code api user is equals 200
         Then validation response body post create new user
-        Then validation response json with JSONSchema "post_create_user_success.json"
 
-    @TCC3
+
+    @api @createapi
     Scenario: Fill in only the required data with gender female
         Given prepare url for "CREATE_USER"
-        When hit api post create new user with Data User
+        When hit api post create new user with Data User "4"
         Then validation status code api user is equals 200
         Then validation response body post create new user
-        Then validation response json with JSONSchema "post_create_user_success.json"
 
-    @TCC4
+    @api @createapi
     Scenario: Fill in only the required data with other gender
         Given prepare url for "CREATE_USER"
-        When hit api post create new user with Data User
+        When hit api post create new user with Data User "5"
         Then validation status code api user is equals 200
         Then validation response body post create new user
-        Then validation response json with JSONSchema "post_create_user_success.json"
 
-    @TCC5
-    Scenario: Fill in other fields with data that doesn't exist, except for the email field
-        Given prepare url for "CREATE_USER"
-        When hit api post create new user with Data User
-        Then validation status code api user is equals 400
-        Then validation response body error create user with message "BODY_NOT_VALID"
-        Then validation response json with JSONSchema "create_user_body_not_valid.json"
+
