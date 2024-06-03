@@ -126,7 +126,7 @@ Cara menggunakan pengujian otomatis untuk DUMMYAPI.IO dan Swag Labs.
     Unduh dan tempatkan ChromeDriver yang sesuai dengan versi Chrome Anda. Tambahkan ChromeDriver ke PATH sistem Anda. ChromeDriver dapat diunduh dari [sini](https://chromedriver.chromium.org/downloads).
 
 ### Menjalankan Pengujian 
-    ```bash
+    ```
     mvn test
     ```
 ### Memahami Hasil Pengujian
