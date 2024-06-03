@@ -125,22 +125,10 @@ Cara menggunakan pengujian otomatis untuk DUMMYAPI.IO dan Swag Labs.
 4. **Konfigurasi WebDriver**
     Unduh dan tempatkan ChromeDriver yang sesuai dengan versi Chrome Anda. Tambahkan ChromeDriver ke PATH sistem Anda. ChromeDriver dapat diunduh dari [sini](https://chromedriver.chromium.org/downloads).
 
-### Menjalankan Pengujian untuk DUMMYAPI.IO
-
-1. **Menjalankan Pengujian API**
-    Pengujian API dilakukan menggunakan Rest Assured. Untuk menjalankan pengujian, gunakan perintah berikut:
+### Menjalankan Pengujian 
     ```bash
-    mvn test -Dcucumber.filter.tags="@api"
+    mvn test
     ```
-
-### Menjalankan Pengujian untuk Swag Labs
-
-1. **Menjalankan Pengujian Web**
-    Pengujian web dilakukan menggunakan Selenium dan Cucumber. Untuk menjalankan pengujian, gunakan perintah berikut:
-    ```bash
-    mvn test -Dcucumber.filter.tags="@webtesting"
-    ```
-
 ### Memahami Hasil Pengujian
 
 1. **Laporan Pengujian**
